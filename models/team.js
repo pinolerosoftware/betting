@@ -1,12 +1,31 @@
-//Cargamos configuracion del mysql
+//Cargamos la configuracion de mysql
 const db = require('../config/mysqlConnection');
 //Creamos el objeto
-let User = {};
-//Agregamos una funcion para obtener la lista de los usuarios
-User.get = function(callback){
+let Team = {};
+//Agregamos una funcion para obtener la lista de los equipos
+Team.get = function(callback) {
     if(db){
         db.query(
-            "select * from users order by userID",
+            "select * from teams order by name",
+            function(error, data) {
+                if(error){
+                    console.log(error);
+                    callback(true, {"error":'Ocurrio un problema con su petición'});
+                } else {
+                    callback(false, data)
+                }
+            }
+        );
+    } else {
+        console.log('fallo la coneccion con mysql');
+        callback(true, {"error":'Ocurrio un problema con su petición'});
+    }
+};
+//Agregamos un metodo para obtener un equipo
+Team.getOne = function(id, callback){
+    if(db){
+        db.query(
+            `select * from teams where teamID = ${db.escape(id)}`,
             function(error, data) {
                 if(error) {
                     console.log(error);
@@ -21,32 +40,11 @@ User.get = function(callback){
         callback(true, {"error":'Ocurrio un problema con su petición'});
     }
 };
-//Agregamos un metodo para obtener un usuario
-User.getOne = function(id, callback){
+//Agregamos un metodo para agregar un nuevo equipo
+Team.add = function(data, callback) {
     if(db){
-        db.query(
-            `select * from users where userID = ${db.escape(id)}`,
-            function(error, data) {
-                if(error) {
-                    console.log(error);
-                    callback(true, {"error":'Ocurrio un problema con su petición'});
-                } else {
-                    callback(false,data);
-                }                
-            }
-        );
-    } else {
-        console.log('fallo la coneccion con mysql');
-        callback(true, {"error":'Ocurrio un problema con su petición'});
-    }
-};
-
-
-//Agregamos un metodo para agregar un nuevo usuario
-User.add = function(data, callback) {
-    if(db){
-        let sql = `insert into Users(username,password,email,phone,firstname,lastname) 
-                              values(${db.escape(data.username)},sha(md5(${db.escape(data.password)})),${db.escape(data.email)},${db.escape(data.phone)},${db.escape(data.firstname)},${db.escape(data.lastname)})`;
+        let sql = `insert into teams(name,fullname,logo) 
+                              values(${db.escape(data.name)},${db.escape(data.fullname)},${db.escape(data.logo)})`;
         db.query(
             sql,
             function(error, inserted) {
@@ -64,17 +62,14 @@ User.add = function(data, callback) {
         callback(true, {"error":'Ocurrio un problema con su petición'});
     }
 };
-
-//Agregamos un metodo para modificar un usuario
-User.edit = function(data, callback) {
+//Agregamos un metodo para modificar un equipo
+Team.edit = function(data, callback) {
     if(db){
-        let sql = `update users set 
-                                    username = ${db.escape(data.username)},
-                                    password = ${db.escape(data.password)},
-                                    phone = ${db.escape(data.phone)},
-                                    firstname = ${db.escape(data.firstname)},
-                                    lastname = ${db.escape(data.lastname)}
-                    where userID = ${db.escape(data.userID)}`;
+        let sql = `update teams set 
+                                    name = ${db.escape(data.name)},
+                                    fullname = ${db.escape(data.fullname)},
+                                    logo = ${db.escape(data.logo)}
+                    where teamID = ${db.escape(data.teamID)}`;
         db.query(sql, function(error, result) {
             if(error) {
                 console.log(error);
@@ -88,12 +83,11 @@ User.edit = function(data, callback) {
         callback(true, {"error":'Ocurrio un problema con su petición'});
     }
 };
-
 //Agregamos un metodo para eliminar un usuario
-User.delete = function(id, callback) {
+Team.delete = function(id, callback) {
     if(db){
-        let sql = ` delete from users 
-                    where userID = ${db.escape(id)}`;
+        let sql = ` delete from teams 
+                    where teamID = ${db.escape(id)}`;
         db.query(sql, function (error, result) {
             if(error) {
                 console.log(error);
@@ -110,4 +104,4 @@ User.delete = function(id, callback) {
     }
 };
 
-module.exports = User;
+module.exports = Team;

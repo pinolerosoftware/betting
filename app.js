@@ -14,8 +14,12 @@ app.use(morgan('dev'));
 //line para agregar bodyParser a express
 app.use(bodyParser.json());
 
+let controllerUser = require('./controller/usersController');
+let controllerTeam = require('./controller/teamsController');
 //Add controller the users in express.
-app.use(require('./controller/usersController'));
+app.use('/', controllerUser);
+//Agregamos controller de los equipos a express
+app.use('/', controllerTeam);
 
 //Corremos el servidor
 app.listen(app.get('port'),() => {

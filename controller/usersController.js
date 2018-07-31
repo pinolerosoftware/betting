@@ -1,9 +1,9 @@
 const userModel = require('../models/user');
 const express = require('express');
 const router = express.Router();
-
+//peticion get /users para la lista a los usuario
 router.get('/users',function(req, res){
-    userModel.getUsers(function(error, data){
+    userModel.get(function(error, data){
         if(error){
             res.status(500).json(data);
         } else {
@@ -11,9 +11,9 @@ router.get('/users',function(req, res){
         }
     });
 });
-
+//peticion get para un usuario
 router.get('/users/:id',function(req, res){
-    userModel.getUser(req.params.id,function(error, data){
+    userModel.getOne(req.params.id,function(error, data){
         if(error){
             res.status(500).json(data);
         } else {
@@ -21,7 +21,7 @@ router.get('/users/:id',function(req, res){
         }
     });
 });
-
+//peticion post /users para agregar un usuario
 router.post('/users', function(req, res) {
     let user = {
         "username": req.body.username,
@@ -31,7 +31,7 @@ router.post('/users', function(req, res) {
         "firstname": req.body.firstname,
         "lastname": req.body.lastname
     };
-    userModel.addUser(user, function(error, data) {
+    userModel.add(user, function(error, data) {
         if(error){
             res.status(500).json(data);
         } else {
@@ -39,7 +39,7 @@ router.post('/users', function(req, res) {
         }
     });   
 });
-
+//peticion put /users para modificar un usuario
 router.put('/users', function(req, res) {
     let user = {
         "userID" : req.body.userID,
@@ -50,7 +50,7 @@ router.put('/users', function(req, res) {
         "firstname": req.body.firstname,
         "lastname": req.body.lastname
     };
-    userModel.editUser(user, function(error, data) {
+    userModel.edit(user, function(error, data) {
         if(error){
             res.status(500).json(data);
         } else {
@@ -58,9 +58,9 @@ router.put('/users', function(req, res) {
         }
     });   
 });
-
+//peticion delete /users/id para eliminar un usuario
 router.delete('/users/:id', function(req, res) { 
-    userModel.deleteUser(req.params.id, function(error, data) {
+    userModel.delete(req.params.id, function(error, data) {
         if(error){
             res.status(500).json(data);
         } else {
