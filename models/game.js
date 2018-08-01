@@ -3,7 +3,13 @@ let Game = {};
 Game.get = function(callback) {
     if(db){
         db.query(
-            'select * from games order by date',
+            `
+            select g.gameID,g.date,g.time,g.team1,t1.name as nameEquipo1,t1.fullname as fullNameEquipo1,t1.logo as logo1,g.team2,t2.name as nameEquipo2,t2.fullname as fullNameEquipo2,t2.logo as logo2
+            from games as g 
+            inner join teams as t1 on g.team1 = t1.teamID
+            inner join teams as t2 on g.team2 = t2.teamID
+            order by g.date asc
+            `,
             function (error, data) {
                 if(error){
                     console.log(error);

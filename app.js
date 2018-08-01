@@ -22,6 +22,8 @@ app.use('/', require('./controller/usersController'));
 app.use('/', require('./controller/teamsController'));
 //Agregamos controller de los juegos
 app.use('/', require('./controller/gameController'));
+//Agregamos controller de las apuestas
+app.use('/', require('./controller/betController'));
 //Corremos el servidor
 app.listen(app.get('port'),() => {
     console.log('Servidor escuchando el puerto ' + app.get('port'));
