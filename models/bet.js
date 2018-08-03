@@ -1,8 +1,8 @@
 const db = require('../config/mysqlConnection');
-let Bet = {};
+var Bet = {};
 Bet.getForUser = function (id, callback) {
     if(db) {
-        let sql = `
+        var sql = `
                 select b.betID,b.result1,b.result2,b.amount,b.userID,u.username,u.firstname,u.lastname,g.*
                 from bets as b
                 inner join users as u on b.userID = u.userID
@@ -34,7 +34,7 @@ Bet.getForUser = function (id, callback) {
 
 Bet.add = function (data, callback) {
     if(db) {
-        let sql = `
+        var sql = `
             insert into bets(gameID,userID,result1,result2,amount) 
                 values(${db.escape(data.gameID)},${db.escape(data.userID)},${db.escape(data.result1)},${db.escape(data.result2)},${db.escape(data.amount)})
         `;
@@ -58,7 +58,7 @@ Bet.add = function (data, callback) {
 
 Bet.edit = function(data, callback) {
     if(db){
-        let sql = `update bets set 
+        var sql = `update bets set 
                                     gameID = ${db.escape(data.gameID)},
                                     userID = ${db.escape(data.userID)},
                                     result1 = ${db.escape(data.result1)},
@@ -81,7 +81,7 @@ Bet.edit = function(data, callback) {
 
 Bet.delete = function(id, callback) {
     if(db){
-        let sql = ` delete from bets 
+        var sql = ` delete from bets 
                     where betID = ${db.escape(id)}`;
         db.query(sql, function (error, result) {
             if(error) {

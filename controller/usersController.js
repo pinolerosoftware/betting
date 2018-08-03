@@ -23,7 +23,7 @@ router.get('/users/:id',function(req, res){
 });
 //peticion post /users para agregar un usuario
 router.post('/users', function(req, res) {
-    let user = {
+    var user = {
         "username": req.body.username,
         "password": req.body.password,
         "email": req.body.email,
@@ -41,7 +41,7 @@ router.post('/users', function(req, res) {
 });
 //peticion put /users para modificar un usuario
 router.put('/users', function(req, res) {
-    let user = {
+    var user = {
         "userID" : req.body.userID,
         "username": req.body.username,
         "password": req.body.password,

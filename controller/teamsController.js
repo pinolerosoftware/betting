@@ -23,7 +23,7 @@ router.get('/teams/:id',function(req, res){
 });
 //peticion post /users para agregar un equipo
 router.post('/teams', function(req, res) {
-    let team = {
+    var team = {
         "name": req.body.name,
         "fullname": req.body.fullname,
         "logo": null
@@ -38,7 +38,7 @@ router.post('/teams', function(req, res) {
 });
 //peticion put /users/id para modificar un equipo
 router.put('/teams', function(req, res) {
-    let team = {
+    var team = {
         "teamID" : req.body.teamID,
         "name": req.body.name,
         "fullname": req.body.fullname,

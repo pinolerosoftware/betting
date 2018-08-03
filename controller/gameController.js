@@ -23,7 +23,7 @@ router.get('/games/:id',function(req, res){
 });
 
 router.post('/games', function(req, res) {
-    let game = {
+    var game = {
         "date": req.body.date,
         "time": req.body.time,
         "team1": req.body.team1,
@@ -39,7 +39,7 @@ router.post('/games', function(req, res) {
 });
 
 router.put('/games', function(req, res) {
-    let game = {
+    var game = {
         "gameID" : req.body.gameID,
         "date": req.body.date,
         "time": req.body.time,

@@ -1,7 +1,7 @@
 //Cargamos la configuracion de mysql
 const db = require('../config/mysqlConnection');
 //Creamos el objeto
-let Team = {};
+var Team = {};
 //Agregamos una funcion para obtener la lista de los equipos
 Team.get = function(callback) {
     if(db){
@@ -43,7 +43,7 @@ Team.getOne = function(id, callback){
 //Agregamos un metodo para agregar un nuevo equipo
 Team.add = function(data, callback) {
     if(db){
-        let sql = `insert into teams(name,fullname,logo) 
+        var sql = `insert into teams(name,fullname,logo) 
                               values(${db.escape(data.name)},${db.escape(data.fullname)},${db.escape(data.logo)})`;
         db.query(
             sql,
@@ -65,7 +65,7 @@ Team.add = function(data, callback) {
 //Agregamos un metodo para modificar un equipo
 Team.edit = function(data, callback) {
     if(db){
-        let sql = `update teams set 
+        var sql = `update teams set 
                                     name = ${db.escape(data.name)},
                                     fullname = ${db.escape(data.fullname)},
                                     logo = ${db.escape(data.logo)}
@@ -86,7 +86,7 @@ Team.edit = function(data, callback) {
 //Agregamos un metodo para eliminar un usuario
 Team.delete = function(id, callback) {
     if(db){
-        let sql = ` delete from teams 
+        var sql = ` delete from teams 
                     where teamID = ${db.escape(id)}`;
         db.query(sql, function (error, result) {
             if(error) {

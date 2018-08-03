@@ -1,7 +1,7 @@
 //Cargamos configuracion del mysql
 const db = require('../config/mysqlConnection');
 //Creamos el objeto
-let User = {};
+var User = {};
 //Agregamos una funcion para obtener la lista de los usuarios
 User.get = function(callback){
     if(db){
@@ -45,7 +45,7 @@ User.getOne = function(id, callback){
 //Agregamos un metodo para agregar un nuevo usuario
 User.add = function(data, callback) {
     if(db){
-        let sql = `insert into Users(username,password,email,phone,firstname,lastname) 
+        var sql = `insert into Users(username,password,email,phone,firstname,lastname) 
                               values(${db.escape(data.username)},sha(md5(${db.escape(data.password)})),${db.escape(data.email)},${db.escape(data.phone)},${db.escape(data.firstname)},${db.escape(data.lastname)})`;
         db.query(
             sql,
@@ -68,7 +68,7 @@ User.add = function(data, callback) {
 //Agregamos un metodo para modificar un usuario
 User.edit = function(data, callback) {
     if(db){
-        let sql = `update users set 
+        var sql = `update users set 
                                     username = ${db.escape(data.username)},
                                     password = ${db.escape(data.password)},
                                     phone = ${db.escape(data.phone)},
@@ -92,7 +92,7 @@ User.edit = function(data, callback) {
 //Agregamos un metodo para eliminar un usuario
 User.delete = function(id, callback) {
     if(db){
-        let sql = ` delete from users 
+        var sql = ` delete from users 
                     where userID = ${db.escape(id)}`;
         db.query(sql, function (error, result) {
             if(error) {

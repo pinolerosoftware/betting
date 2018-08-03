@@ -1,5 +1,5 @@
 const db = require('../config/mysqlConnection');
-let Game = {};
+var Game = {};
 Game.get = function(callback) {
     if(db){
         db.query(
@@ -46,7 +46,7 @@ Game.getOne = function (id, callback) {
 
 Game.add = function (data, callback) {
     if(db){
-        let sql = `
+        var sql = `
             insert into Games(date,time,team1,result1,team2,result2)
             values(${db.escape(data.date)},${db.escape(data.time)},${db.escape(data.team1)},default,${db.escape(data.team2)},default)
         `;
@@ -70,7 +70,7 @@ Game.add = function (data, callback) {
 
 Game.edit = function(data, callback) {
     if(db){
-        let sql = `update games set 
+        var sql = `update games set 
                                     date = ${db.escape(data.date)},
                                     time = ${db.escape(data.time)},
                                     team1 = ${db.escape(data.team1)},
@@ -94,7 +94,7 @@ Game.edit = function(data, callback) {
 
 Game.delete = function(id, callback) {
     if(db){
-        let sql = ` delete from games 
+        var sql = ` delete from games 
                     where gameID = ${db.escape(id)}`;
         db.query(sql, function (error, result) {
             if(error) {

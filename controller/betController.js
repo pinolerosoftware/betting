@@ -12,7 +12,7 @@ router.get('/bets/:id',function(req, res){
 });
 
 router.post('/bets', function(req, res) {
-    let bet = {
+    var bet = {
         "gameID": req.body.gameID,
         "userID": req.body.userID,
         "result1": req.body.result1,
@@ -29,7 +29,7 @@ router.post('/bets', function(req, res) {
 });
 
 router.put('/bets', function(req, res) {
-    let bet = {
+    var bet = {
         "betID": req.body.betID,
         "gameID": req.body.gameID,
         "userID": req.body.userID,
