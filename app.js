@@ -19,11 +19,11 @@ app.use(bodyParser.json());
 //Add controller the users in express.
 app.use('/', require('./controller/usersController'));
 //Agregamos controller de los equipos a express
-app.use('/', require('./controller/teamsController'));
+//app.use('/', require('./controller/teamsController'));
 //Agregamos controller de los juegos
-app.use('/', require('./controller/gameController'));
+//app.use('/', require('./controller/gameController'));
 //Agregamos controller de las apuestas
-app.use('/', require('./controller/betController'));
+//app.use('/', require('./controller/betController'));
 //Corremos el servidor
 app.listen(app.get('port'),() => {
     console.log('Servidor escuchando el puerto ' + app.get('port'));
